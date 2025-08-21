@@ -2,8 +2,7 @@
 
 *Automatically synced with your [v0.app](https://v0.app) deployments*
 
-[![Deployed on Vercel](https://vercel.com/button)](https://new-portfolio.vercel.app)
-
+[![Deployed on Vercel](https://vercel.com/button)](https://new-portfolio-eight-ruby.vercel.app/)
 [![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/projects/W130wiikEfy)
 
 ## Overview
