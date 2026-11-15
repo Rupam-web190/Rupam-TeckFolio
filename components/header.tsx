@@ -50,20 +50,20 @@ export default function Header() {
         scrolled ? "border-border bg-background/85 backdrop-blur-md" : "border-transparent bg-transparent"
       }`}
     >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 max-w-[1800px] flex-nowrap items-center justify-between gap-2 px-4 sm:px-6 lg:px-8">
         <a
           href="#home"
-          className="group flex items-center gap-2.5"
+          className="group flex shrink-0 items-center gap-2"
           aria-label={`${site.name} — back to top`}
           onClick={() => setMenuOpen(false)}
         >
-          <span className="grid h-9 w-9 place-items-center rounded-lg border border-border bg-card font-mono text-sm font-bold text-primary transition-colors group-hover:border-primary/50">
+          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-border bg-card font-mono text-sm font-bold text-primary transition-colors group-hover:border-primary/50">
             {site.initials}
           </span>
-          <span className="hidden text-sm font-semibold tracking-tight sm:block">{site.name}</span>
+          <span className="hidden whitespace-nowrap text-xs font-semibold tracking-tight sm:block 2xl:text-sm">{site.name}</span>
         </a>
 
-        <nav aria-label="Primary" className="hidden items-center gap-0.5 xl:flex">
+        <nav aria-label="Primary" className="hidden min-w-0 flex-nowrap items-center gap-0 xl:flex">
           {navItems.map((item) => {
             const active = activeId === item.id
             return (
@@ -71,7 +71,7 @@ export default function Header() {
                 key={item.id}
                 href={`#${item.id}`}
                 aria-current={active ? "true" : undefined}
-                className={`relative rounded-full px-3 py-2 text-[13px] font-medium transition-colors ${
+                className={`relative whitespace-nowrap rounded-full px-1.5 py-2 text-[11px] font-medium transition-colors 2xl:px-2 2xl:text-xs ${
                   active ? "text-primary" : "text-muted-foreground hover:text-foreground"
                 }`}
               >
@@ -88,16 +88,16 @@ export default function Header() {
           })}
         </nav>
 
-        <div className="flex items-center gap-2">
-          <SocialLinks className="mr-1 hidden 2xl:flex" />
+        <div className="flex shrink-0 flex-nowrap items-center gap-1.5">
+          <SocialLinks className="hidden shrink-0 xl:flex" size="sm" />
 
-          <ThemeToggle />
+          <ThemeToggle className="shrink-0" />
 
           <a
             href={site.resumePath}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-9 items-center gap-2 rounded-lg bg-primary px-3.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
+            className="inline-flex h-9 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg bg-primary px-2.5 text-xs font-semibold text-primary-foreground transition hover:opacity-90 2xl:gap-2 2xl:px-3.5 2xl:text-sm"
           >
             <FileText className="h-4 w-4" />
             <span className="hidden sm:inline">Resume</span>

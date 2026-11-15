@@ -33,10 +33,10 @@ type SocialLinksProps = {
 }
 
 export default function SocialLinks({ className, size = "sm" }: SocialLinksProps) {
-  const box = size === "md" ? "h-10 w-10" : "h-9 w-9"
+  const box = size === "md" ? "h-10 w-10" : "h-8 w-8 shrink-0"
 
   return (
-    <ul className={cn("flex flex-wrap items-center gap-2", className)}>
+    <ul className={cn("flex flex-nowrap items-center gap-1", className)}>
       {socials.map(({ label, href, external, Icon }) => (
         <li key={label}>
           <a
