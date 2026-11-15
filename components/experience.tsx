@@ -1,142 +1,72 @@
-import { Briefcase, GraduationCap, Award } from "lucide-react"
+import Reveal from "@/components/reveal"
+import SectionHeading from "@/components/section-heading"
+import { experience } from "@/lib/data/experience"
 
 export default function Experience() {
-  const experiences = [
-    {
-      type: "internship",
-      title: "Frontend Development Internship",
-      organization: "Web Development Company",
-      period: "June 2025",
-      description:
-        "Worked on web development projects using HTML, CSS, and JavaScript, including a quiz app with DOM manipulation, validation, and responsive design.",
-      skills: ["HTML", "CSS", "JavaScript", "DOM Manipulation", "Responsive Design"],
-      icon: <Briefcase size={20} />,
-    },
-    {
-      type: "internship",
-      title: "Machine Learning Internship Project",
-      organization: "Data Analytics Firm",
-      period: "June 2025",
-      description:
-        "Built Predictive Analytics for Stock Market Trends using ML algorithms to analyze market patterns and forecast trends.",
-      skills: ["Python", "Machine Learning", "Data Analysis", "Predictive Modeling"],
-      icon: <Briefcase size={20} />,
-    },
-    {
-      type: "education",
-      title: "B.Tech in Computer Science & Engineering",
-      organization: "MCKV Institute of Engineering",
-      period: "2023 - 2027",
-      description:
-        "Currently in 3rd year with focus on advanced computer science concepts and practical implementations in software development and AI/ML.",
-      skills: ["Computer Science", "Data Structures", "Algorithms", "Software Engineering"],
-      icon: <GraduationCap size={20} />,
-    },
-  ]
-
-  const achievements = [
-    "Participated in multiple hackathons showcasing innovative projects",
-    "Completed Machine Learning Internship on stock market predictive analytics",
-    "Earned certifications in AI/ML and Web Development",
-    "Developed award-winning Safeclue Connection safety innovation project",
-    "Currently working on AI Crowd Management for Hospitals project",
-  ]
-
   return (
-    <section id="experience" className="py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-serif font-black text-foreground mb-4">Experience & Achievements</h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-6"></div>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Building expertise through hands-on experience and continuous learning
-          </p>
-        </div>
+    <section id="experience" className="relative py-24 sm:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading
+          index="05"
+          eyebrow="Professional Experience"
+          title="Where I've built and researched"
+          description="Five training and internship engagements across full-stack Java engineering, deep-learning research, generative AI and data visualisation."
+        />
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Experience Timeline */}
-          <div>
-            <h3 className="text-2xl font-serif font-bold text-foreground mb-8 flex items-center gap-2">
-              <Briefcase size={24} className="text-primary" />
-              Experience
-            </h3>
+        <ol className="relative mt-14 space-y-6">
+          <span
+            aria-hidden
+            className="absolute bottom-4 left-1.5 top-4 w-px bg-gradient-to-b from-primary/60 via-border to-transparent"
+          />
 
-            <div className="space-y-8">
-              {experiences.map((exp, index) => (
-                <div key={index} className="relative pl-8 border-l-2 border-border last:border-l-0">
-                  <div className="absolute -left-2 top-0 w-4 h-4 bg-primary rounded-full animate-pulse"></div>
+          {experience.map((entry, index) => (
+            <li key={entry.id} className="relative pl-10">
+              <span
+                aria-hidden
+                className="absolute left-0 top-7 h-3 w-3 rounded-full border-2 border-background bg-primary ring-4 ring-primary/15"
+              />
 
-                  <div className="bg-card p-6 rounded-lg border border-border hover:shadow-md transition-all duration-300 hover:-translate-y-1">
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex items-center gap-2">
-                        <div className="text-primary">{exp.icon}</div>
-                        <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">{exp.period}</span>
-                      </div>
+              <Reveal delay={index * 0.05}>
+                <article className="rounded-xl border border-border bg-card/70 p-6 transition-colors duration-200 hover:border-primary/40">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <h3 className="text-base font-semibold">
+                        {entry.role}
+                        {entry.focus ? <span className="font-normal text-muted-foreground"> — {entry.focus}</span> : null}
+                      </h3>
+                      <p className="mt-1 text-sm font-medium text-primary">{entry.organization}</p>
                     </div>
-
-                    <h4 className="font-serif font-bold text-foreground mb-1">{exp.title}</h4>
-                    <p className="text-accent font-medium mb-3">{exp.organization}</p>
-                    <p className="text-muted-foreground mb-4 leading-relaxed">{exp.description}</p>
-
-                    <div className="flex flex-wrap gap-2">
-                      {exp.skills.map((skill, skillIndex) => (
-                        <span
-                          key={skillIndex}
-                          className="bg-muted text-muted-foreground px-2 py-1 rounded text-xs hover:bg-primary hover:text-primary-foreground transition-colors duration-200"
-                        >
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
+                    <p className="shrink-0 rounded-full border border-border bg-muted/60 px-3 py-1 font-mono text-[11px] text-muted-foreground">
+                      {entry.period}
+                    </p>
                   </div>
-                </div>
-              ))}
-            </div>
-          </div>
 
-          {/* Achievements */}
-          <div>
-            <h3 className="text-2xl font-serif font-bold text-foreground mb-8 flex items-center gap-2">
-              <Award size={24} className="text-accent" />
-              Achievements
-            </h3>
-
-            <div className="space-y-4">
-              {achievements.map((achievement, index) => (
-                <div
-                  key={index}
-                  className="bg-card p-4 rounded-lg border border-border hover:bg-muted/50 transition-all duration-300 hover:scale-105 flex items-start gap-3"
-                >
-                  <div className="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0 animate-pulse"></div>
-                  <p className="text-foreground">{achievement}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Skills Highlight */}
-            <div className="mt-8 bg-gradient-to-r from-primary/10 to-accent/10 p-6 rounded-lg border border-primary/20">
-              <h4 className="font-serif font-bold text-foreground mb-4">Current Focus Areas</h4>
-              <div className="grid grid-cols-2 gap-4 text-sm">
-                <div>
-                  <p className="font-medium text-primary mb-2">Technical Skills</p>
-                  <ul className="text-muted-foreground space-y-1">
-                    <li>• Advanced AI/ML</li>
-                    <li>• Speech Processing</li>
-                    <li>• Full-Stack Development</li>
+                  <ul className="mt-4 space-y-2">
+                    {entry.highlights.map((highlight) => (
+                      <li key={highlight} className="flex gap-2.5 text-sm leading-relaxed text-muted-foreground">
+                        <span aria-hidden className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary" />
+                        <span>{highlight}</span>
+                      </li>
+                    ))}
                   </ul>
-                </div>
-                <div>
-                  <p className="font-medium text-accent mb-2">Soft Skills</p>
-                  <ul className="text-muted-foreground space-y-1">
-                    <li>• Problem Solving</li>
-                    <li>• Innovation</li>
-                    <li>• Team Collaboration</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+
+                  {entry.tags?.length ? (
+                    <ul className="mt-4 flex flex-wrap gap-2">
+                      {entry.tags.map((tag) => (
+                        <li
+                          key={tag}
+                          className="rounded-full border border-border bg-muted/50 px-2.5 py-1 font-mono text-[11px] text-muted-foreground"
+                        >
+                          {tag}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+                </article>
+              </Reveal>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   )

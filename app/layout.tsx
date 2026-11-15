@@ -1,5 +1,7 @@
 import type React from "react"
-import { Open_Sans, Montserrat } from "next/font/google"
+import type { Metadata, Viewport } from "next"
+import { Open_Sans, Montserrat, JetBrains_Mono } from "next/font/google"
+import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
 
 const openSans = Open_Sans({
@@ -12,14 +14,43 @@ const montserrat = Montserrat({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-montserrat",
-  weight: ["400", "600", "700", "900"],
+  weight: ["400", "500", "600", "700", "800", "900"],
 })
 
-export const metadata = {
-  title: "Rupam Majumdar - AI/ML Developer & Software Engineer",
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-jetbrains-mono",
+  weight: ["400", "500", "600"],
+})
+
+export const metadata: Metadata = {
+  title: {
+    default: "Rupam Majumdar — Full-Stack Developer | AI/ML Engineer",
+    template: "%s | Rupam Majumdar",
+  },
   description:
-    "Portfolio of Rupam Majumdar, a passionate Computer Science student specializing in AI/ML, web development, and innovative software solutions.",
-    generator: 'v0.app'
+    "Portfolio of Rupam Majumdar — full-stack developer and AI/ML enthusiast building production web applications, GenAI tools and deep learning research. B.Tech CSE 2027, MCKV Institute of Engineering.",
+  authors: [{ name: "Rupam Majumdar" }],
+  creator: "Rupam Majumdar",
+  keywords: [
+    "Rupam Majumdar",
+    "Full-Stack Developer",
+    "AI/ML Engineer",
+    "Next.js Developer",
+    "Spring Boot",
+    "FastAPI",
+    "Deep Learning",
+    "Facial Emotion Recognition",
+    "GenAI",
+  ],
+}
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#060b18" },
+  ],
 }
 
 export default function RootLayout({
@@ -28,8 +59,17 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${openSans.variable} ${montserrat.variable} antialiased`}>
-      <body>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${openSans.variable} ${montserrat.variable} ${jetbrainsMono.variable}`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   )
 }

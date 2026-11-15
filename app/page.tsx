@@ -1,45 +1,31 @@
-"use client"
-
-import { useState, useEffect } from "react"
 import Header from "@/components/header"
 import Hero from "@/components/hero"
 import About from "@/components/about"
 import Skills from "@/components/skills"
 import Projects from "@/components/projects"
 import Experience from "@/components/experience"
+import Research from "@/components/research"
+import Education from "@/components/education"
 import Achievements from "@/components/achievements"
 import Contact from "@/components/contact"
 import Footer from "@/components/footer"
-import BackgroundSlideshow from "@/components/background-slideshow"
+import SiteBackground from "@/components/site-background"
 
 export default function Home() {
-  const [darkMode, setDarkMode] = useState(false)
-
-  useEffect(() => {
-    const isDark = localStorage.getItem("darkMode") === "true"
-    setDarkMode(isDark)
-    document.documentElement.classList.toggle("dark", isDark)
-  }, [])
-
-  const toggleDarkMode = () => {
-    const newDarkMode = !darkMode
-    setDarkMode(newDarkMode)
-    localStorage.setItem("darkMode", newDarkMode.toString())
-    document.documentElement.classList.toggle("dark", newDarkMode)
-  }
-
   return (
-    <div className="min-h-screen relative">
-      <BackgroundSlideshow />
+    <div className="relative min-h-screen">
+      <SiteBackground />
 
       <div className="relative z-10">
-        <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+        <Header />
         <main>
           <Hero />
           <About />
           <Skills />
           <Projects />
           <Experience />
+          <Research />
+          <Education />
           <Achievements />
           <Contact />
         </main>

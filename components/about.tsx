@@ -1,134 +1,128 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import Image from "next/image"
+import { GraduationCap } from "lucide-react"
+import CodeBackground from "@/components/code-background"
+import Reveal from "@/components/reveal"
+import SectionHeading from "@/components/section-heading"
+import { education, focusAreas, site } from "@/lib/data/site"
 
 export default function About() {
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.1 },
-    )
-
-    const element = document.getElementById("about")
-    if (element) observer.observe(element)
-
-    return () => observer.disconnect()
-  }, [])
-
   return (
-    <section id="about" className="py-20 bg-muted/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-serif font-black text-foreground mb-4 drop-shadow-lg">About Me</h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto"></div>
-        </div>
+    <section id="about" className="relative overflow-hidden py-24 sm:py-28">
+      <CodeBackground />
 
-        <div className="flex justify-center mb-12">
-          <div className="relative">
-            <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-primary shadow-2xl">
-              <img
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/vut1.jpg-T2rmhLOxZH29OVNRedbrkxgIdJwVZc.jpeg"
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading
+          index="02"
+          eyebrow="About"
+          title="Full-stack builder with a research mindset"
+          description="Final-year B.Tech Computer Science & Engineering student at MCKV Institute of Engineering (MAKAUT), graduating in 2027 with a 9.60 CGPA."
+        />
+
+        <div className="mt-14 grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+          {/* Portrait */}
+          <Reveal>
+            <div className="relative overflow-hidden rounded-2xl border border-border bg-card glow-soft">
+              <Image
+                src="/rupam-profile-2.jpg"
                 alt="Rupam Majumdar"
-                className="w-full h-full object-cover object-center"
+                width={876}
+                height={1388}
+                sizes="(max-width: 1024px) 80vw, 400px"
+                className="h-auto w-full"
               />
-            </div>
-            <div className="absolute -inset-1 bg-gradient-to-r from-primary via-accent to-primary rounded-full blur opacity-30 animate-spin-slow"></div>
-          </div>
-        </div>
-
-        <div className="max-w-4xl mx-auto">
-          <div className={`space-y-6 ${isVisible ? "animate-slide-in-left" : "opacity-0"}`}>
-            <p className="text-lg leading-relaxed text-foreground drop-shadow-md">
-              I'm <span className="font-semibold text-primary">Rupam Majumdar</span>, a 3rd-year B.Tech student in
-              Computer Science & Engineering at MCKV Institute of Engineering.
-            </p>
-
-            <p className="text-lg leading-relaxed text-muted-foreground drop-shadow-md">
-              I'm passionate about software development, artificial intelligence, and open-source contribution. I enjoy
-              creating projects that combine technology with real-world impact, whether it's in mental health support,
-              futuristic safety innovations, or gaming experiences.
-            </p>
-
-            <div className="bg-gradient-to-r from-blue-500/10 to-indigo-500/10 p-6 rounded-lg border border-blue-500/20">
-              <h4 className="font-serif font-bold text-blue-600 mb-3">🎓 Academic Excellence</h4>
-              <div className="space-y-2 text-sm">
-                <p>
-                  <span className="font-semibold">Current YGPA:</span> 9.47 (Third Year B.Tech CSE)
-                </p>
-                <p>
-                  <span className="font-semibold">Higher Secondary:</span> 88% (Grade A+, 440/500 marks)
-                </p>
-                <p>
-                  <span className="font-semibold">Top Subjects:</span> Mathematics (99), Physics (83), Chemistry (80)
-                </p>
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background to-transparent"
+              />
+              <div className="absolute inset-x-4 bottom-4 flex items-center justify-between gap-3 rounded-xl border border-border bg-card/90 px-3.5 py-2.5 backdrop-blur">
+                <div>
+                  <p className="text-sm font-semibold">{site.name}</p>
+                  <p className="text-xs text-muted-foreground">B.Tech CSE · MCKV Institute of Engineering</p>
+                </div>
+                <GraduationCap className="h-5 w-5 shrink-0 text-primary" />
               </div>
             </div>
+          </Reveal>
 
-            <div className="bg-gradient-to-r from-primary/10 to-accent/10 p-6 rounded-lg border border-primary/20">
-              <h4 className="font-serif font-bold text-primary mb-3">🤝 Let's Collaborate!</h4>
-              <p className="text-muted-foreground">
-                I believe in the power of collaboration and teamwork. If you're passionate about technology and
-                innovation, let's connect and work together to create something amazing! Whether it's AI/ML projects,
-                web development, or any tech initiative, I'm always excited to collaborate with like-minded individuals.
+          {/* Narrative + facts */}
+          <div className="space-y-8">
+            <Reveal delay={0.05}>
+              <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
+                My work sits where software engineering meets applied AI. I build and ship complete products — Spring Boot
+                services with layered MVC architecture, FastAPI endpoints, Node/Express REST APIs, and React/Next.js
+                frontends — and I run the machine-learning experiments that back them up.
               </p>
-            </div>
+            </Reveal>
 
-            <div className="grid sm:grid-cols-2 gap-6 mt-8">
-              <div className="bg-card p-6 rounded-lg border border-border hover:shadow-lg transition-all duration-300 hover:scale-105">
-                <h3 className="font-serif font-bold text-primary mb-2">🎯 Focus Areas</h3>
-                <ul className="text-sm text-muted-foreground space-y-1">
-                  <li>• AI/ML Development</li>
-                  <li>• Web Development</li>
-                  <li>• Speech Processing</li>
-                  <li>• Open Source</li>
-                </ul>
-              </div>
+            <Reveal delay={0.1}>
+              <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
+                During my research internship with the IEEE Computational Intelligence Society (Kolkata Chapter), I
+                independently benchmarked seven CNN architectures for facial emotion recognition on the RAF-DB and CK+
+                datasets — the best model reached{" "}
+                <span className="mx-0.5 inline-block rounded-md border border-primary/30 bg-primary/10 px-1.5 py-0.5 font-mono text-[0.9em] font-semibold text-primary">
+                  72.88%
+                </span>{" "}
+                test accuracy with a{" "}
+                <span className="mx-0.5 inline-block rounded-md border border-accent/30 bg-accent/10 px-1.5 py-0.5 font-mono text-[0.9em] font-semibold text-accent">
+                  0.923
+                </span>{" "}
+                ROC-AUC. I have also co-authored a paper on fuzzy logic-based headphone volume control, accepted for
+                publication in the International Journal of Advances in Engineering Sciences and Applied Mathematics
+                (2026).
+              </p>
+            </Reveal>
 
-              <div className="bg-card p-6 rounded-lg border border-border hover:shadow-lg transition-all duration-300 hover:scale-105">
-                <h3 className="font-serif font-bold text-accent mb-2">🚀 Interests</h3>
-                <ul className="text-sm text-muted-foreground space-y-1">
-                  <li>• Audio & Speech Processing</li>
-                  <li>• Safety Innovations</li>
-                  <li>• Gaming Development</li>
-                  <li>• Predictive Analytics</li>
-                </ul>
-              </div>
-            </div>
+            <Reveal delay={0.15}>
+              <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
+                I&apos;m currently open to internship and full-time opportunities where I can ship production software and
+                keep working on applied machine learning.
+              </p>
+            </Reveal>
 
-            <div className="flex flex-wrap justify-center gap-4 mt-8">
-              <div className="bg-gradient-to-r from-pink-500/20 to-rose-500/20 text-pink-700 dark:text-pink-300 px-4 py-2 rounded-full text-sm font-semibold animate-float border border-pink-500/30 hover:animate-pulse hover:scale-110 transition-all duration-300">
-                AI/ML Expert
-              </div>
-              <div
-                className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 text-green-700 dark:text-green-300 px-4 py-2 rounded-full text-sm font-semibold animate-float border border-green-500/30 hover:animate-pulse hover:scale-110 transition-all duration-300"
-                style={{ animationDelay: "0.5s" }}
-              >
-                Full Stack Developer
-              </div>
-              <div
-                className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 text-yellow-700 dark:text-yellow-300 px-4 py-2 rounded-full text-sm font-semibold animate-float border border-yellow-500/30 hover:animate-pulse hover:scale-110 transition-all duration-300"
-                style={{ animationDelay: "1s" }}
-              >
-                Innovation Enthusiast
-              </div>
-              <div
-                className="bg-gradient-to-r from-purple-500/20 to-violet-500/20 text-purple-700 dark:text-purple-300 px-4 py-2 rounded-full text-sm font-semibold animate-float border border-purple-500/30 hover:animate-pulse hover:scale-110 transition-all duration-300"
-                style={{ animationDelay: "1.5s" }}
-              >
-                Problem Solver
-              </div>
-              <div
-                className="bg-gradient-to-r from-cyan-500/20 to-teal-500/20 text-cyan-700 dark:text-cyan-300 px-4 py-2 rounded-full text-sm font-semibold animate-float border border-cyan-500/30 hover:animate-pulse hover:scale-110 transition-all duration-300"
-                style={{ animationDelay: "2s" }}
-              >
-                Tech Innovator
-              </div>
+            <div className="grid gap-6 sm:grid-cols-2">
+              <Reveal delay={0.2}>
+                <div className="h-full rounded-xl border border-border bg-card/70 p-6">
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-primary">Academic snapshot</h3>
+                  <ul className="mt-5 space-y-3">
+                    {education.map((entry) => (
+                      <li
+                        key={entry.qualification}
+                        className="flex items-start justify-between gap-4 border-b border-border pb-3 last:border-0 last:pb-0"
+                      >
+                        <div>
+                          <p className="text-sm font-medium">{entry.qualification}</p>
+                          <p className="text-xs text-muted-foreground">{entry.institute}</p>
+                        </div>
+                        <div className="shrink-0 text-right">
+                          <p className="font-mono text-sm text-primary">{entry.result}</p>
+                          <p className="text-xs text-muted-foreground">{entry.period}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </Reveal>
+
+              <Reveal delay={0.25}>
+                <div className="h-full rounded-xl border border-border bg-card/70 p-6">
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-accent">Focus areas</h3>
+                  <ul className="mt-5 space-y-3">
+                    {focusAreas.map((area, index) => (
+                      <li key={area.title} className="flex gap-3">
+                        <span className="mt-0.5 font-mono text-xs text-primary">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <div>
+                          <p className="text-sm font-medium">{area.title}</p>
+                          <p className="text-xs leading-relaxed text-muted-foreground">{area.detail}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </Reveal>
             </div>
           </div>
         </div>
