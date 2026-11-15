@@ -1,162 +1,208 @@
-import { ExternalLink, Github, Brain, Shield, Gamepad2, Hospital, Users, TrendingUp } from "lucide-react"
+"use client"
+
+import { useMemo, useState } from "react"
+import Link from "next/link"
+import { AnimatePresence, motion } from "framer-motion"
+import { ArrowUpRight, Check, Clock3, Github } from "lucide-react"
+
+import Reveal from "@/components/reveal"
+import SectionHeading from "@/components/section-heading"
+import { projectIcons } from "@/components/project-icon"
+import { projectCategories, projects, type ProjectCategory } from "@/lib/data/projects"
+import { site } from "@/lib/data/site"
+import { cn } from "@/lib/utils"
+
+type Filter = ProjectCategory | "All"
+
+const filters: readonly Filter[] = ["All", ...projectCategories]
 
 export default function Projects() {
-  const projects = [
-    {
-      title: "EmpathAI",
-      description:
-        "An emotionally intelligent voice-to-voice chatbot designed to support mental health. It integrates speech recognition and emotion AI to provide empathetic responses.",
-      technologies: ["Python", "AI/ML", "Speech Processing", "Emotion Detection"],
-      icon: <Brain size={24} />,
-      color: "from-blue-500 to-purple-600",
-      category: "AI/ML Project",
-    },
-    {
-      title: "Safeclue Connection (Freedom To Move)",
-      description:
-        "A mobile application that helps prevent accidents or pre-accident situations by monitoring environmental noise intensity. With the help of an in-built fuzzy inference system, it alerts people about dangerous surroundings through their smart wearables.",
-      technologies: ["C Programming", "MATLAB", "Mobile Applications", "Fuzzy Logic", "Project Management"],
-      icon: <Shield size={24} />,
-      color: "from-red-500 to-orange-600",
-      category: "Innovation Project",
-      timeline: "Oct 2023 – Present, MCKV Institute of Engineering",
-    },
-    {
-      title: "Stock Market Trend Prediction",
-      description:
-        "This project predicts the next day's closing price of Reliance Industries (RELIANCE.NS) stock using historical data and machine learning models in Python (Google Colab). Achieved R² Score of ~0.9771 with Linear Regression model.",
-      technologies: ["Python", "Machine Learning", "Pandas", "Scikit-learn", "yfinance", "Google Colab"],
-      icon: <TrendingUp size={24} />,
-      color: "from-emerald-500 to-cyan-600",
-      category: "Machine Learning",
-      github: "https://github.com/Rupam-web190/Stock_Market_Trend_Prediction",
-    },
-    {
-      title: "Gaming Website",
-      description:
-        "A central hub to play multiple JavaScript-based games like Tic Tac Toe, Snake, and Snake & Ladder, built with a clean and responsive UI.",
-      technologies: ["HTML", "CSS", "JavaScript", "Responsive Design"],
-      icon: <Gamepad2 size={24} />,
-      color: "from-green-500 to-teal-600",
-      category: "Web Development",
-    },
-    {
-      title: "AI Crowd Management for Hospitals",
-      description:
-        "Med ARK is developing an AI-powered crowd management app for hospitals to reduce emergency room congestion and save lives. The app enables patients' families to check real-time bed availability in nearby hospitals, book beds in advance, and upload medical details to prepare hospitals ahead of time.",
-      technologies: ["AI/ML", "Mobile Development", "Healthcare Tech", "Real-time Systems"],
-      icon: <Hospital size={24} />,
-      color: "from-cyan-500 to-blue-600",
-      category: "Healthcare AI",
-      timeline: "Nov 2024 - Present, MCKV Institute of Engineering",
-    },
-  ]
+  const [active, setActive] = useState<Filter>("All")
+
+  const visible = useMemo(
+    () => (active === "All" ? projects : projects.filter((project) => project.categories.includes(active))),
+    [active],
+  )
 
   return (
-    <section id="projects" className="py-20 bg-muted/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-serif font-black text-foreground mb-4">Featured Projects</h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-6"></div>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Innovative solutions combining technology with real-world impact
-          </p>
-        </div>
+    <section id="projects" className="relative py-24 sm:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading
+          index="04"
+          eyebrow="Featured Projects"
+          title="Things I've designed, built and shipped"
+          description="Full-stack applications, GenAI tooling and deep-learning research. Each card opens a full case study with the problem, the implementation and the stack."
+        />
 
-        <div className="grid lg:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              className="bg-card rounded-xl border border-border overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group"
-            >
-              {/* Project Header */}
-              <div className={`bg-gradient-to-r ${project.color} p-6 text-white`}>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="bg-white/20 p-2 rounded-lg">{project.icon}</div>
-                  <span className="text-xs bg-white/20 px-2 py-1 rounded-full">{project.category}</span>
-                </div>
-                <h3 className="text-xl font-serif font-bold mb-2">{project.title}</h3>
-                {project.timeline && <p className="text-sm text-white/80">{project.timeline}</p>}
-              </div>
+        {/* ── Category filters ──────────────────────────────────────── */}
+        <Reveal className="mt-10">
+          <div role="group" aria-label="Filter projects by category" className="flex flex-wrap items-center gap-2">
+            {filters.map((filter) => {
+              const isActive = active === filter
+              const count =
+                filter === "All"
+                  ? projects.length
+                  : projects.filter((project) => project.categories.includes(filter)).length
 
-              {/* Project Content */}
-              <div className="p-6">
-                <p className="text-muted-foreground mb-6 leading-relaxed">{project.description}</p>
+              return (
+                <button
+                  key={filter}
+                  type="button"
+                  onClick={() => setActive(filter)}
+                  aria-pressed={isActive}
+                  className={cn(
+                    "relative rounded-full border px-3.5 py-1.5 text-[13px] font-medium transition-colors",
+                    isActive
+                      ? "border-primary/40 text-primary"
+                      : "border-border bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground",
+                  )}
+                >
+                  {isActive ? (
+                    <motion.span
+                      layoutId="project-filter-pill"
+                      aria-hidden
+                      className="absolute inset-0 rounded-full bg-primary/10 ring-1 ring-primary/25"
+                      transition={{ type: "spring", stiffness: 340, damping: 32 }}
+                    />
+                  ) : null}
+                  <span className="relative">
+                    {filter}
+                    <span className="ml-1.5 font-mono text-[11px] opacity-60">{count}</span>
+                  </span>
+                </button>
+              )
+            })}
+          </div>
+        </Reveal>
 
-                {/* Technologies */}
-                <div className="mb-6">
-                  <h4 className="text-sm font-semibold text-foreground mb-3">Technologies Used</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech, techIndex) => (
-                      <span
-                        key={techIndex}
-                        className="bg-muted text-muted-foreground px-2 py-1 rounded text-xs hover:bg-primary hover:text-primary-foreground transition-colors duration-200"
+        {/* ── Cards ─────────────────────────────────────────────────── */}
+        <motion.div layout className="mt-8 grid gap-6 md:grid-cols-2">
+          <AnimatePresence mode="popLayout" initial={false}>
+            {visible.map((project) => {
+              const Icon = projectIcons[project.slug]
+
+              return (
+                <motion.article
+                  key={project.slug}
+                  layout
+                  initial={{ opacity: 0, scale: 0.97 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.97 }}
+                  transition={{ duration: 0.22, ease: "easeOut" }}
+                  className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card/70 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/45 hover:shadow-[0_18px_60px_-28px_var(--glow)]"
+                >
+                  <span
+                    aria-hidden
+                    className="absolute inset-x-0 top-0 h-px scale-x-0 bg-gradient-to-r from-transparent via-primary to-transparent transition-transform duration-500 group-hover:scale-x-100"
+                  />
+
+                  <div className="flex items-start justify-between gap-4">
+                    {Icon ? (
+                      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg border border-border bg-muted text-primary transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105">
+                        <Icon className="h-5 w-5" />
+                      </span>
+                    ) : null}
+                    <ul className="flex flex-wrap justify-end gap-1.5">
+                      {project.categories.map((category) => (
+                        <li
+                          key={category}
+                          className="rounded-md border border-border bg-background/60 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground"
+                        >
+                          {category}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <h3 className="mt-5 text-lg font-bold leading-snug">
+                    <Link href={`/projects/${project.slug}`} className="transition-colors hover:text-primary">
+                      {project.title}
+                    </Link>
+                  </h3>
+
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{project.tagline}</p>
+
+                  {project.metrics ? (
+                    <dl className="mt-5 flex flex-wrap gap-x-6 gap-y-3 border-y border-border py-4">
+                      {project.metrics.slice(0, 3).map((metric) => (
+                        <div key={metric.label} className="flex flex-col-reverse">
+                          <dt className="mt-0.5 text-[11px] leading-tight text-muted-foreground">{metric.label}</dt>
+                          <dd className="font-mono text-base font-bold">{metric.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  ) : null}
+
+                  <ul className="mt-5 space-y-2">
+                    {project.features.slice(0, 3).map((feature) => (
+                      <li key={feature} className="flex gap-2 text-sm leading-snug text-muted-foreground">
+                        <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <ul className="mt-5 flex flex-wrap gap-2">
+                    {project.stack.map((tech) => (
+                      <li
+                        key={tech}
+                        className="rounded-md border border-border bg-background/60 px-2 py-1 font-mono text-[11px] text-muted-foreground"
                       >
                         {tech}
-                      </span>
+                      </li>
                     ))}
-                  </div>
-                </div>
+                  </ul>
 
-                {/* Project Actions */}
-                <div className="flex gap-3">
-                  <button className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 flex items-center justify-center gap-2">
-                    <ExternalLink size={16} />
-                    View Details
-                  </button>
-                  {project.github ? (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-muted hover:bg-accent hover:text-accent-foreground text-muted-foreground px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 flex items-center justify-center gap-2"
+                  <div className="mt-6 flex flex-wrap items-center gap-3 border-t border-border pt-5">
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
                     >
-                      <Github size={16} />
-                      Code
-                    </a>
-                  ) : (
-                    <button className="bg-muted hover:bg-accent hover:text-accent-foreground text-muted-foreground px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 flex items-center justify-center gap-2">
-                      <Github size={16} />
-                      Code
-                    </button>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+                      View Case Study
+                      <ArrowUpRight className="h-4 w-4" />
+                    </Link>
 
-        <div className="text-center mt-16">
-          <div className="bg-gradient-to-r from-primary/10 to-accent/10 p-8 rounded-xl border border-primary/20 mb-8">
-            <h3 className="text-2xl font-serif font-bold text-foreground mb-4">
-              <Users className="inline-block mr-2" size={24} />
-              Let's Build Something Amazing Together!
-            </h3>
-            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-              I'm always looking for passionate collaborators who share my vision for innovative technology solutions.
-              Whether you're a fellow developer, designer, or just someone with great ideas, let's connect and create
-              something impactful!
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="#contact"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 flex items-center justify-center gap-2"
-              >
-                <Users size={20} />
-                Let's Collaborate
-              </a>
-              <a
-                href="https://github.com/Rupam-web190"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-card hover:bg-muted text-card-foreground px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 flex items-center gap-2 border border-border"
-              >
-                <Github size={20} />
-                View All Projects
-              </a>
-            </div>
-          </div>
-        </div>
+                    {project.github ? (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-4 py-2 text-sm font-semibold transition hover:border-primary/50 hover:text-primary"
+                      >
+                        <Github className="h-4 w-4" />
+                        Source
+                      </a>
+                    ) : (
+                      <span
+                        title="GitHub repository coming soon"
+                        className="inline-flex cursor-not-allowed items-center gap-1.5 rounded-lg border border-dashed border-border bg-muted/50 px-4 py-2 text-sm font-medium text-muted-foreground"
+                      >
+                        <Clock3 className="h-4 w-4" />
+                        Repo coming soon
+                      </span>
+                    )}
+                  </div>
+                </motion.article>
+              )
+            })}
+          </AnimatePresence>
+        </motion.div>
+
+        {visible.length === 0 ? (
+          <p className="mt-10 text-center text-sm text-muted-foreground">No projects in this category yet.</p>
+        ) : null}
+
+        <Reveal className="mt-12 text-center">
+          <a
+            href={site.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-sm font-semibold transition hover:border-primary/50 hover:text-primary"
+          >
+            <Github className="h-4 w-4" />
+            Browse all repositories on GitHub
+          </a>
+        </Reveal>
       </div>
     </section>
   )

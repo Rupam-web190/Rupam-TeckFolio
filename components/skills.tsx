@@ -1,84 +1,58 @@
-import { Code, Brain, Globe, Wrench } from "lucide-react"
+import type { ComponentType } from "react"
+import { BrainCircuit, Code2, Cpu, Database, Layers, Sparkles } from "lucide-react"
+import Reveal from "@/components/reveal"
+import SectionHeading from "@/components/section-heading"
+import { skillGroups, type SkillGroup } from "@/lib/data/skills"
+
+const icons: Record<SkillGroup["key"], ComponentType<{ className?: string }>> = {
+  languages: Code2,
+  fullstack: Layers,
+  ai: BrainCircuit,
+  genai: Sparkles,
+  data: Database,
+  fundamentals: Cpu,
+}
 
 export default function Skills() {
-  const skillCategories = [
-    {
-      icon: <Code size={24} />,
-      title: "Programming Languages",
-      skills: ["C", "Java", "Python", "JavaScript"],
-      color: "from-blue-500 to-blue-600",
-    },
-    {
-      icon: <Globe size={24} />,
-      title: "Web Development",
-      skills: ["HTML", "CSS", "JavaScript", "Responsive Design"],
-      color: "from-green-500 to-green-600",
-    },
-    {
-      icon: <Brain size={24} />,
-      title: "AI/ML",
-      skills: ["Machine Learning", "Predictive Analytics", "Data Visualization", "Speech Processing"],
-      color: "from-purple-500 to-purple-600",
-    },
-    {
-      icon: <Wrench size={24} />,
-      title: "Tools & Platforms",
-      skills: ["Git", "GitHub", "Audacity", "FFT Analysis"],
-      color: "from-orange-500 to-orange-600",
-    },
-  ]
-
   return (
-    <section id="skills" className="py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-serif font-black text-foreground mb-4">Skills & Expertise</h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-6"></div>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            A comprehensive toolkit for building innovative solutions across multiple domains
-          </p>
-        </div>
+    <section id="skills" className="relative py-24 sm:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading
+          index="03"
+          eyebrow="Technical Skills"
+          title="The stack I build with"
+          description="Six working groups spanning backend services, deep-learning research and data tooling — each one used in a shipped project, an internship or a published study."
+        />
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {skillCategories.map((category, index) => (
-            <div
-              key={index}
-              className="bg-card p-6 rounded-xl border border-border hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group"
-            >
-              <div
-                className={`w-12 h-12 bg-gradient-to-r ${category.color} rounded-lg flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform duration-300`}
-              >
-                {category.icon}
-              </div>
-
-              <h3 className="font-serif font-bold text-foreground mb-4 text-lg">{category.title}</h3>
-
-              <div className="space-y-2">
-                {category.skills.map((skill, skillIndex) => (
-                  <div
-                    key={skillIndex}
-                    className="bg-muted px-3 py-2 rounded-lg text-sm text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-colors duration-200 cursor-default"
-                  >
-                    {skill}
+        <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {skillGroups.map((group, index) => {
+            const Icon = icons[group.key]
+            return (
+              <Reveal key={group.key} delay={index * 0.05}>
+                <article className="group h-full rounded-xl border border-border bg-card/70 p-6 transition-colors duration-200 hover:border-primary/40">
+                  <div className="flex items-center gap-3">
+                    <span className="grid h-10 w-10 place-items-center rounded-lg border border-border bg-muted/50 text-primary transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110">
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <h3 className="text-base font-semibold">{group.title}</h3>
                   </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
 
-        {/* Special Interest Highlight */}
-        <div className="mt-16 bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl p-8 text-center">
-          <h3 className="text-2xl font-serif font-bold text-foreground mb-4">Special Interest</h3>
-          <p className="text-lg text-muted-foreground mb-4">
-            <span className="font-semibold text-primary">Audio & Speech Processing</span> - Specializing in FFT analysis
-            and voice-based emotion detection
-          </p>
-          <div className="flex justify-center items-center gap-4 text-sm">
-            <span className="bg-primary/20 text-primary px-3 py-1 rounded-full">FFT Analysis</span>
-            <span className="bg-accent/20 text-accent px-3 py-1 rounded-full">Emotion Detection</span>
-            <span className="bg-primary/20 text-primary px-3 py-1 rounded-full">Speech Recognition</span>
-          </div>
+                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{group.summary}</p>
+
+                  <ul className="mt-5 flex flex-wrap gap-2">
+                    {group.skills.map((skill) => (
+                      <li
+                        key={skill}
+                        className="rounded-full border border-border bg-muted/50 px-2.5 py-1 text-xs text-muted-foreground transition-colors duration-200 group-hover:border-primary/30 group-hover:text-foreground"
+                      >
+                        {skill}
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              </Reveal>
+            )
+          })}
         </div>
       </div>
     </section>

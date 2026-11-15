@@ -41,19 +41,19 @@ export default function Contact() {
     {
       icon: <Mail size={20} />,
       label: "Email",
-      value: "stylorupam11@gmail.com",
-      href: "mailto:stylorupam11@gmail.com",
+      value: "rupammajumdar2005@gmail.com",
+      href: "mailto:rupammajumdar2005@gmail.com",
     },
     {
       icon: <Linkedin size={20} />,
       label: "LinkedIn",
-      value: "linkedin.com/in/rupam-majumdar-0ab740333",
+      value: "linkedin.com/in/rupam-majumdar",
       href: "https://linkedin.com/in/rupam-majumdar-0ab740333",
     },
     {
       icon: <Instagram size={20} />,
       label: "Instagram",
-      value: "@stylorupam11",
+      value: "@rupammajumdar",
       href: "https://www.instagram.com/stylorupam11",
     },
     {
@@ -131,19 +131,22 @@ export default function Contact() {
               <ul className="space-y-2 text-muted-foreground">
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  Internship opportunities in AI/ML
-                </li>
+                 Java Backend & Full-Stack Development opportunities                </li>
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-accent rounded-full"></div>
-                  Frontend development projects
+                  AI/ML and Deep Learning internship opportunities
                 </li>
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  Open source collaborations
+                  Open-source contributions and collaborative projects
                 </li>
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-accent rounded-full"></div>
-                  Innovative tech discussions
+                  Research collaborations in AI, ML and emerging technologies
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-primary rounded-full"></div>
+                  Opportunities to build impactful, real-world software solutions
                 </li>
               </ul>
             </div>

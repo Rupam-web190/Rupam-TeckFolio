@@ -1,94 +1,91 @@
-import { Github, Mail, Heart } from "lucide-react"
+import { Heart } from "lucide-react"
+
+import SocialLinks from "@/components/social-links"
+import { navItems, site } from "@/lib/data/site"
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-card border-t border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid md:grid-cols-3 gap-8">
+    <footer className="border-t border-border bg-card/60">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="grid gap-10 md:grid-cols-3">
           {/* Brand */}
           <div>
-            <a href="#home" className="text-3xl font-serif font-black text-primary mb-4 block">
-              Rupam Majumdar
+            <a
+              href="/#home"
+              className="group inline-flex items-center gap-2.5"
+              aria-label={`${site.name} — back to top`}
+            >
+              <span className="grid h-9 w-9 place-items-center rounded-lg border border-border bg-card font-mono text-sm font-bold text-primary transition-colors group-hover:border-primary/50">
+                {site.initials}
+              </span>
+              <span className="text-base font-semibold tracking-tight">{site.name}</span>
             </a>
-            <p className="text-muted-foreground mb-4 leading-relaxed">
-              AI/ML Developer & Software Engineer passionate about creating innovative solutions that make a real-world
-              impact.
-            </p>
-            <div className="flex items-center gap-4">
-              <a
-                href="mailto:stylorupam11@gmail.com"
-                className="w-10 h-10 bg-muted hover:bg-primary hover:text-primary-foreground rounded-lg flex items-center justify-center transition-colors duration-200"
-                aria-label="Email"
-              >
-                <Mail size={18} />
-              </a>
-              <a
-                href="https://github.com/Rupam-web190"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-muted hover:bg-primary hover:text-primary-foreground rounded-lg flex items-center justify-center transition-colors duration-200"
-                aria-label="GitHub"
-              >
-                <Github size={18} />
-              </a>
-            </div>
+
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">{site.headline}</p>
+
+            <SocialLinks size="md" className="mt-6" />
           </div>
 
-          {/* Quick Links */}
+          {/* Quick links */}
           <div>
-            <h3 className="font-serif font-bold text-foreground mb-4">Quick Links</h3>
-            <nav className="space-y-2">
-              {[
-                { href: "#about", label: "About" },
-                { href: "#skills", label: "Skills" },
-                { href: "#projects", label: "Projects" },
-                { href: "#experience", label: "Experience" },
-                { href: "#contact", label: "Contact" },
-              ].map((link) => (
+            <h3 className="text-sm font-semibold uppercase tracking-wider">Quick Links</h3>
+            <nav aria-label="Footer" className="mt-4 grid grid-cols-2 gap-y-2">
+              {navItems.map((item) => (
                 <a
-                  key={link.href}
-                  href={link.href}
-                  className="block text-muted-foreground hover:text-primary transition-colors duration-200"
+                  key={item.id}
+                  href={`/#${item.id}`}
+                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
-                  {link.label}
+                  {item.label}
                 </a>
               ))}
             </nav>
           </div>
 
-          {/* Current Status */}
+          {/* Status */}
           <div>
-            <h3 className="font-serif font-bold text-foreground mb-4">Current Status</h3>
-            <div className="space-y-3">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-muted-foreground text-sm">Available for opportunities</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                <span className="text-muted-foreground text-sm">3rd Year B.Tech Student</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                <span className="text-muted-foreground text-sm">AI/ML Specialization</span>
-              </div>
-            </div>
+            <h3 className="text-sm font-semibold uppercase tracking-wider">Current Status</h3>
+            <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
+              <li className="flex items-center gap-2">
+                <span aria-hidden className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-emerald-500" />
+                Open to internship &amp; full-time roles
+              </li>
+              <li className="flex items-center gap-2">
+                <span aria-hidden className="h-2 w-2 shrink-0 rounded-full bg-primary" />
+                Final-year B.Tech CSE (2027)
+              </li>
+              <li className="flex items-center gap-2">
+                <span aria-hidden className="h-2 w-2 shrink-0 rounded-full bg-accent" />
+                AI/ML &amp; full-stack specialisation
+              </li>
+            </ul>
 
-            <div className="mt-6 p-4 bg-muted/50 rounded-lg">
-              <p className="text-sm text-muted-foreground">
-                <span className="font-medium text-foreground">Fun Fact:</span> I love experimenting with audio & speech
-                processing and brainstorming futuristic safety innovations!
-              </p>
-            </div>
+            <dl className="mt-6 space-y-2 rounded-lg border border-border bg-background/60 p-4 text-sm">
+              <div className="flex gap-2">
+                <dt className="shrink-0 text-muted-foreground">Based in</dt>
+                <dd className="font-medium">{site.location}</dd>
+              </div>
+              <div className="flex gap-2">
+                <dt className="shrink-0 text-muted-foreground">Email</dt>
+                <dd className="min-w-0">
+                  <a href={`mailto:${site.email}`} className="break-all font-medium transition-colors hover:text-primary">
+                    {site.email}
+                  </a>
+                </dd>
+              </div>
+            </dl>
           </div>
         </div>
 
-        <div className="border-t border-border mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-muted-foreground text-sm">© {currentYear} Rupam Majumdar. All rights reserved.</p>
-          <p className="text-muted-foreground text-sm flex items-center gap-1">
-            Made with <Heart size={14} className="text-red-500" /> using Next.js & Tailwind CSS
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 sm:flex-row">
+          <p className="text-sm text-muted-foreground">
+            © {currentYear} {site.name}. All rights reserved.
+          </p>
+          <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
+            Built with Next.js, Tailwind CSS &amp; Framer Motion
+            <Heart aria-hidden className="h-3.5 w-3.5 text-rose-500" />
           </p>
         </div>
       </div>
