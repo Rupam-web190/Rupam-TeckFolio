@@ -21,7 +21,7 @@ export const experience: ExperienceEntry[] = [
     organization: "Ardent Computech Pvt. Ltd.",
     role: "Industrial Trainee",
     focus: "Full Stack Java (Spring Boot & Microservices)",
-    period: "Jun 2026 – Nov 2026",
+    period: "Aug 2026 – Oct 2026",
     highlights: [
       "Developing an e-commerce application with Spring Boot, implementing REST controllers, service layer and repository layer following a layered MVC architecture.",
       "Designed entity models integrated with a relational database via JPA-based repositories, implemented CRUD operations, and added authentication/authorization using Spring Security.",
