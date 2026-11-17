@@ -25,7 +25,7 @@ export default function About() {
           <Reveal>
             <div className="relative overflow-hidden rounded-2xl border border-border bg-card glow-soft">
               <Image
-                src="/rupam-profile-2.jpg"
+                src="/rupam-profile-2.jpeg"
                 alt="Rupam Majumdar"
                 width={876}
                 height={1388}
